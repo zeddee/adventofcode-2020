@@ -12,11 +12,14 @@ fn main() {
         }
 
         let num1 = list_of_strings[idx-1];
-        let num2 = list_of_strings[idx];
 
-        if is_sum_2020(num1, num2) {
-            println!("Is sum 2020?: {}", is_sum_2020(num1, num2));
-            println!("{}", get_product(num1, num2))            
+        for i in 1..list_of_strings.len() {
+            let num2 = list_of_strings[i];
+
+            if is_sum_2020(num1, num2) {
+                println!("Is sum 2020?: {}", is_sum_2020(num1, num2));
+                println!("{}", get_product(num1, num2))            
+            }
         }
     }
 }
