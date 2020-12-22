@@ -1,5 +1,5 @@
 [package]
-name = "adventofcode-2020"
+name = "ac"
 version = "0.1.0"
 authors = ["Zed Tan <zed@shootbird.work>"]
 edition = "2018"
