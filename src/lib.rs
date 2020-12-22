@@ -15,11 +15,11 @@ mod tests {
     }
 }
 
-fn is_sum_2020(num1:u64, num2:u64) -> bool {
+pub fn is_sum_2020(num1:u64, num2:u64) -> bool {
     num1 + num2 == 2020
 }
 
-fn get_product(num1: u64, num2: u64) -> u64 {
+pub fn get_product(num1: u64, num2: u64) -> u64 {
     num1 * num2
 }
 
@@ -27,7 +27,7 @@ fn parse_number(line: String) -> u64 {
     line.trim().parse::<u64>().unwrap()
 }
 
-pub fn parse_listfile(filename: &str) -> Vec<String> {
+pub fn get_filepath(filename: &str) -> std::path::PathBuf {
     let filepath = std::env::current_dir()
         .expect("Invalid path to file")
         .join(std::path::Path::new(filename));
@@ -36,18 +36,33 @@ pub fn parse_listfile(filename: &str) -> Vec<String> {
         panic!("Cannot read file")
     }
 
+    filepath
+}
+
+pub fn read_numlist_from_file(filepath: std::path::PathBuf) -> Vec<u64> {
     let file = std::fs::File::open(filepath)
         .unwrap();
+
+    let lines = BufReader::new(file).lines();
+
+    let mut list: Vec<u64> = Vec::new();
+
     
-    let reader = BufReader::new(file);
+    for (_, line) in lines.enumerate() {
+        let thisline = line.unwrap();
 
-    let mut list_of_strings = vec![];
+        for c in thisline.chars() {
+            if !c.is_ascii_digit() {
+                eprintln!("Invalid number: {}", &thisline)
+            }
+        }
 
-    for (_, line) in reader.lines().enumerate() {
-        list_of_strings.push(line.unwrap());
+        let resulting_line: u64 = thisline.parse().unwrap();
+        
+        list.push(resulting_line);
     }
 
-    list_of_strings
+    list
 }
 
 pub fn ask_2020() {
