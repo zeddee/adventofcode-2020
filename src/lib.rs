@@ -1,4 +1,4 @@
-use std::io::{self, prelude::*, BufReader};
+use std::io::{prelude::*, BufReader};
 
 #[cfg(test)]
 mod tests {
