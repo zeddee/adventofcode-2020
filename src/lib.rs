@@ -6,21 +6,31 @@ mod tests {
 
     #[test]
     fn sum_2020() {
-        assert_eq!(is_sum_2020(1010, 1010), true)
+        assert_eq!(is_sum_2020(vec![1010, 1010]), true)
     }
 
     #[test]
     fn get_2020_product() {
-        assert_eq!(get_product(5435345, 345345), 1877069219025)
+        assert_eq!(get_product(vec![5435345, 345345]), 1877069219025)
     }
 }
 
-pub fn is_sum_2020(num1:u64, num2:u64) -> bool {
-    num1 + num2 == 2020
+pub fn is_sum_2020(numlist: Vec<u64>) -> bool {
+    let mut total: u64 = numlist[0];
+    for i in 1..numlist.len() {
+        total = total + numlist[i];
+    }
+    total == 2020
 }
 
-pub fn get_product(num1: u64, num2: u64) -> u64 {
-    num1 * num2
+pub fn get_product(numlist: Vec<u64>) -> u64 {
+    let mut product: u64 = numlist[0];
+    for i in 1..numlist.len() {
+        if i <= numlist.len() {
+            product = product * numlist[i]; 
+        }
+    }
+    product
 }
 
 fn parse_number(line: String) -> u64 {
@@ -75,6 +85,6 @@ pub fn ask_2020() {
     println!("Enter your second number:");
     std::io::stdin().read_line(&mut line2).unwrap();
 
-    println!("{}", is_sum_2020(parse_number(line1), parse_number(line2)));
+    println!("{}", is_sum_2020(vec![parse_number(line1), parse_number(line2)]));
 }
 

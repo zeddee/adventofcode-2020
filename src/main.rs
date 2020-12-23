@@ -16,9 +16,9 @@ fn main() {
         for i in 1..list_of_strings.len() {
             let num2 = list_of_strings[i];
 
-            if is_sum_2020(num1, num2) {
-                println!("Is sum 2020?: {}", is_sum_2020(num1, num2));
-                println!("{}", get_product(num1, num2))            
+            if is_sum_2020(vec![num1, num2]) {
+                println!("Is sum 2020?: {}", is_sum_2020(vec![num1, num2]));
+                println!("{}", get_product(vec![num1, num2]))            
             }
         }
     }
