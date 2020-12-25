@@ -42,16 +42,15 @@ impl PuzzleInput {
         let content = &Self::from_file(filepath);
         let mut list: Vec<u64> = Vec::new();
         
-        for line in 1..content.content.len() {
-            let thisline = &content.content[line-1];
+        for line in &content.content {
             
-            for c in thisline.chars() {
+            for c in line.chars() {
                 if !c.is_ascii_digit() {
-                    eprintln!("Invalid number: {}", &thisline)
+                    eprintln!("Invalid number: {}", &line)
                 }
             }
             
-            let resulting_line: u64 = thisline.parse().unwrap();
+            let resulting_line: u64 = line.parse().unwrap();
             
             list.push(resulting_line);
         }
