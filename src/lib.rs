@@ -45,6 +45,22 @@ mod tests {
             true,
         );
     }
+
+    #[test]
+    fn password_set_validate_awkward() {
+        assert_eq!(
+            PasswordRecord::new("1-3 a: abcde").validate_password_awkward(),
+            true
+        );
+        assert_eq!(
+            PasswordRecord::new("1-3 b: cdefg").validate_password_awkward(),
+            false,
+        );
+        assert_eq!(
+            PasswordRecord::new("2-9 c: ccccccccc").validate_password_awkward(),
+            false,
+        );
+    }
 }
 
 
@@ -106,6 +122,23 @@ impl PuzzleInput {
         
         valid_password_count
     }
+
+    pub fn check_valid_passwords_awkward(filepath: std::path::PathBuf) -> u32 {
+
+        let input = &Self::from_file(filepath);
+
+        let mut valid_password_count = 0;
+
+        for line in &input.content {
+            let record = PasswordRecord::new(line);
+
+            if record.validate_password_awkward() {
+                valid_password_count += 1;
+            }
+        }
+        
+        valid_password_count
+    }
 }
 
 #[derive(Debug, PartialEq)]
@@ -123,6 +156,7 @@ impl PasswordRecord {
             password: password_set[1].trim().to_owned(),
         }
     }
+    
     fn validate_password(&self) -> bool {
         let matched: Vec<&str> = self.password.rmatches(self.rule.c).collect();
         let matches_count = matched.len();
@@ -130,6 +164,26 @@ impl PasswordRecord {
 
         self.rule.count_max >= matches_count_u32
             && matches_count_u32 >= self.rule.count_min
+    }
+
+    
+    fn validate_password_awkward(&self) -> bool {
+        let matched: Vec<(usize, &str)> =
+            self.password.match_indices(self.rule.c).collect();
+
+        let mut sub_matches = 0;
+        for m in matched {
+            let idx = (m.0 as u32)+1;
+            if idx == self.rule.count_max {
+                sub_matches += 1;
+            }
+            
+            if idx == self.rule.count_min {
+                sub_matches += 1;
+            }
+        }
+
+        sub_matches == 1
     }
 }
 

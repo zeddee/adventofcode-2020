@@ -34,8 +34,14 @@ fn day2() -> u32 {
     PuzzleInput::check_valid_passwords(Utils::get_filepath(filename))
 }
 
+fn day2_part2() -> u32 {
+    let filename = "src/data/02.txt";
+    PuzzleInput::check_valid_passwords_awkward(Utils::get_filepath(filename))
+}
+
 fn main() {
     println!("{}", day1());
     println!("Valid passwords: {}", day2());
+    println!("Valid (awkward) passwords: {}", day2_part2());
 }
 
