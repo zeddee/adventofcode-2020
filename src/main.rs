@@ -29,7 +29,13 @@ fn day1() -> u64 {
     return result
 }
 
+fn day2() -> u32 {
+    let filename = "src/data/02.txt";
+    PuzzleInput::check_valid_passwords(Utils::get_filepath(filename))
+}
+
 fn main() {
     println!("{}", day1());
+    println!("Valid passwords: {}", day2());
 }
 
