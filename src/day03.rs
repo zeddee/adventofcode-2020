@@ -69,7 +69,7 @@ impl Map {
         }
     }
 
-    fn extend(&self) -> Self{
+    fn extend(&self) -> Self {
         let mut newmap: Map = self.clone();
         let mut init_maptile: MapTile = self.content[0].clone();
 
