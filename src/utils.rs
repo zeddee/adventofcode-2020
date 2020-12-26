@@ -6,7 +6,7 @@ pub fn get_filepath(filename: &str) -> std::path::PathBuf {
         .join(std::path::Path::new(filename));
 
     if !filepath.is_file() {
-        panic!("Cannot read file")
+        panic!("Cannot read file: {:?}", filepath)
     }
 
     filepath
