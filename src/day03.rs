@@ -8,13 +8,21 @@ mod tests {
         MapTile {
             content:  vec![
                 MapRow {
-                    content: vec!['.', '#', '.', '.', '.', '.', '.', '.', '#', '.', '.', '#', '#', '#', '#', '.', '.', '.', '.', '.', '#', '.', '.', '#', '.', '.', '.', '.', '.', '.', '.'] },
+                    content: vec!['.', '#', '.', '.', '.', '.', '.', '.', '#', '.', '.', '#', '#', '#', '#', '.', '.', '.', '.', '.', '#', '.', '.', '#', '.', '.', '.', '.', '.', '.', '.'],
+                    width: 31,
+                },
                 MapRow {
-                    content: vec!['#', '.', '#', '.', '.', '.', '#', '.', '.', '.', '#', '.', '.', '#', '.', '#', '.', '.', '.', '#', '.', '#', '.', '.', '.', '#', '#', '.', '#', '#', '.'] },
+                    content: vec!['#', '.', '#', '.', '.', '.', '#', '.', '.', '.', '#', '.', '.', '#', '.', '#', '.', '.', '.', '#', '.', '#', '.', '.', '.', '#', '#', '.', '#', '#', '.'],
+                    width: 31,
+                },
                 MapRow {
-                    content: vec!['#', '.', '#', '.', '.', '.', '.', '#', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '#', '.', '.', '.', '#', '#', '.', '.', '.', '.', '.', '#', '#'] },
+                    content: vec!['#', '.', '#', '.', '.', '.', '.', '#', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '#', '.', '.', '.', '#', '#', '.', '.', '.', '.', '.', '#', '#'],
+                    width: 31,
+                },
                 MapRow {
-                    content: vec!['#', '.', '#', '.', '#', '.', '.', '.', '.', '.', '#', '#', '.', '.', '.', '.', '.', '.', '#', '.', '#', '.', '.', '.', '.', '.', '.', '.', '#', '#', '#'] }
+                    content: vec!['#', '.', '#', '.', '#', '.', '.', '.', '.', '.', '#', '#', '.', '.', '.', '.', '.', '.', '#', '.', '#', '.', '.', '.', '.', '.', '.', '.', '#', '#', '#'],
+                    width: 31,
+                },
             ],
         }
     }
@@ -39,7 +47,7 @@ mod tests {
             content: vec![expected_maptile(), expected_maptile()]
         };
 
-        let mut initial_map = Map {
+        let initial_map = Map {
             content: vec![expected_maptile()]
         };
 
@@ -60,6 +68,7 @@ struct MapTile{
 #[derive(Debug, PartialEq, Clone)]
 struct MapRow {
     content: Vec<char>,
+    width: u32,
 }
 
 impl Map {
@@ -71,7 +80,7 @@ impl Map {
 
     fn extend(&self) -> Self {
         let mut newmap: Map = self.clone();
-        let mut init_maptile: MapTile = self.content[0].clone();
+        let init_maptile: MapTile = self.content[0].clone();
 
         newmap.content.push(init_maptile);
 
@@ -95,7 +104,12 @@ impl MapTile {
                 thisrow.push(c);
             }
 
-            thistile.push(MapRow { content: thisrow });
+            let rowlength = thisrow.len() as u32;
+
+            thistile.push(MapRow {
+                content: thisrow,
+                width: rowlength,
+            });
         }
         
         return Self {
