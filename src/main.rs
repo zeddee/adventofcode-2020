@@ -1,8 +1,9 @@
-use ac::*;
+mod utils;
+mod day01;
 
 fn day1() -> u64 {
     let filename = "src/data/01.csv";
-    let numlist = PuzzleInput::parse_content_to_numbers(Utils::get_filepath(filename));
+    let numlist = day01::PuzzleInput::parse_content_to_numbers(utils::get_filepath(filename));
     
     let mut result: u64 = 0;
 
@@ -19,8 +20,8 @@ fn day1() -> u64 {
             for i in 1..numlist.len() {
                 let num3 = numlist[i];
 
-                if Utils::is_sum_2020(vec![num1, num2, num3]) {
-                    result = Utils::get_product(vec![num1, num2, num3])
+                if utils::is_sum_2020(vec![num1, num2, num3]) {
+                    result = utils::get_product(vec![num1, num2, num3])
                 }
             }
         }
@@ -31,12 +32,12 @@ fn day1() -> u64 {
 
 fn day2() -> u32 {
     let filename = "src/data/02.txt";
-    PuzzleInput::check_valid_passwords(Utils::get_filepath(filename))
+    day01::PuzzleInput::check_valid_passwords(utils::get_filepath(filename))
 }
 
 fn day2_part2() -> u32 {
     let filename = "src/data/02.txt";
-    PuzzleInput::check_valid_passwords_awkward(Utils::get_filepath(filename))
+    day01::PuzzleInput::check_valid_passwords_awkward(utils::get_filepath(filename))
 }
 
 fn main() {
